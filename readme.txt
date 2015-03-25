@@ -3,7 +3,7 @@ Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, WPML, language, localization, multilingual
 Requires at least: 3.7
-Tested up to: 4.1
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -48,6 +48,11 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 1. Installation finished.
 
 == Changelog ==
+
+= 1.7.2 =
+* IMPORTANT: Date format changed to reflect localized date strings. Please review and update your date string in the plugin's settings!
+* Code cleanup
+* Localizations updated
 
 = 1.7.1.2 =
 * Permission error fix (thanks outtareach!)
