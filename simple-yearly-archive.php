@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.7.2
+Version: 1.7.3
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -43,7 +43,7 @@ class SimpleYearlyArchive {
     public	$text_domain = 'simple-yearly-archive';
     private $slug = 'simple-yearly-archive';
     private $shortcode = 'SimpleYearlyArchive';
-    private $plugin_version = '1.7.2';
+    private $plugin_version = '1.7.3';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -64,15 +64,12 @@ class SimpleYearlyArchive {
 		$this->plugin_url	= plugin_dir_url( __FILE__ );
 		$this->gmt_offset	= get_option('gmt_offset')*3600;
 		$this->sort_order	= $this->get_archive_order();
-		$this->post_status	= $this->get_archive_order();
+		$this->post_status	= $this->get_archive_post_statuses();
 
 		load_plugin_textdomain( $this->text_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_styles' ) );
-
-		//add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
-		//add_action( 'wp_enqueue_scripts', array( $this, 'register_styles' ) );
 
 		add_action( 'wp_head', array( $this, 'html_head' ) );
 
@@ -127,7 +124,7 @@ class SimpleYearlyArchive {
 			'no_found_rows'		=> 1,
 			'post_type'			=> $posttype,
 			'numberposts'		=> -1,
-			'post_status'		=> $this->get_archive_post_statuses(),
+			'post_status'		=> $this->post_status,
 			'orderby'			=> 'post_date',
 			'order'				=> $this->sort_order,
 			'suppress_filters'	=> false
@@ -185,6 +182,7 @@ class SimpleYearlyArchive {
 
 						$langtitle = $post->post_title;
 						$langtitle = apply_filters("the_title", $post->post_title);
+						$langtitle = apply_filters("sya_the_title", $langtitle, $post->ID);
 						if( $post->post_status == 'private' ) {
 							$isprivate = ' class="sya_private"';
 							$langtitle = sprintf(__('Private: %s'), $langtitle);

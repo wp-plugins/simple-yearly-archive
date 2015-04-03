@@ -38,6 +38,20 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 == Frequently Asked Questions ==
 
+= How can I change the posts' titles? =
+
+Just use the filter `sya_the_title`. Example: Add the following to your theme's `functions.php`:
+
+`
+add_filter( 'sya_the_title', 'my_sya_filter_title', 10, 2 );
+
+function my_sya_filter_title( $title, $id ) {
+	return $id . ' - ' . $title;
+}
+`
+
+This will append the post's ID to the output. This also allows you to append custom taxonomies and more.
+
 Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/ "Head over here")
 
 == Installation ==
@@ -48,6 +62,10 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 1. Installation finished.
 
 == Changelog ==
+
+= 1.7.3 =
+* Added a filter `sya_the_title` so you can filter the post's title before output
+* Minor bug fixes
 
 = 1.7.2 =
 * IMPORTANT: Date format changed to reflect localized date strings. Please review and update your date string in the plugin's settings!
